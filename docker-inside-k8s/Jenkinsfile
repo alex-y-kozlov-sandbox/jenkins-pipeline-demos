@@ -27,10 +27,11 @@ spec:
         git 'https://github.com/alex-y-kozlov-sandbox/jenkins-pipeline-demos.git'
         container('docker') {
                 script {
-                def image = docker.build("ykpersonal/jenkins-test:0.1","m4")
-                image.inside(){
-                  sh "docker info"
-                }
+                  def image = docker.build("ykpersonal/jenkins-test:0.1","m4")
+                  docker.withRegistry( '', 'DH-ykpersonal') {
+                    image.push()
+                  }                  
+                  sh 'docker images'
             }
          }
       }
