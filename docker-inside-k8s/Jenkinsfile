@@ -2,7 +2,6 @@ pipeline {
   agent {
     kubernetes {
       //cloud 'kubernetes'
-      label 'mypod'
       yaml """
 apiVersion: v1
 kind: Pod
@@ -25,10 +24,10 @@ spec:
   stages {
     stage('Build Docker image') {
       steps {
-        git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
+        git 'https://github.com/alex-y-kozlov-sandbox/jenkins-pipeline-demos.git'
         container('docker') {
                 script {
-                def image = docker.build("cusdock","CustomImage")
+                def image = docker.build("ykpersonal/jenkins-test:0.1","m4")
                 image.inside(){
                   sh "docker info"
                 }
